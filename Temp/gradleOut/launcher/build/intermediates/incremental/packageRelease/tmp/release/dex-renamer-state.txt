@@ -1,0 +1,4 @@
+#Tue Jun 09 00:11:21 MSK 2020
+base.0=C\:\\\!hactsi\\PS-32\\knigopoisk\\papergame\\Temp\\gradleOut\\launcher\\build\\intermediates\\transforms\\dexMerger\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

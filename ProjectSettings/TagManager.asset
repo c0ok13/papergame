@@ -43,3 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: trafaret
+    uniqueID: 363256257
+    locked: 0
+  - name: pieces
+    uniqueID: 3073941933
+    locked: 0
