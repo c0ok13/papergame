@@ -28,7 +28,7 @@ public class GameControl : MonoBehaviour
         bool loopCheck = true;
         foreach (Transform picture in pictures)
         {
-            if(!(picture.rotation.z == 00 && picture.gameObject.GetComponent<MovePiece>().locked)){
+            if(!(picture.gameObject.GetComponent<MovePiece>().locked)){
                 loopCheck = false;
             }
         }

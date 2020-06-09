@@ -11,22 +11,22 @@ public class Levels : MonoBehaviour
 
     public void OpenSecondLevel()
     {
-        Application.LoadLevel(3);
+        Application.LoadLevel(4);
     }
 
     public void OpenThirdLevel()
     {
-        Application.LoadLevel(3);
+        Application.LoadLevel(5);
     }
 
     public void OpenFourthLevel()
     {
-        Application.LoadLevel(3);
+        Application.LoadLevel(6);
     }
 
     public void OpenFifthLevel()
     {
-        Application.LoadLevel(3);
+        Application.LoadLevel(7);
     }
     
     public void backToLevels()

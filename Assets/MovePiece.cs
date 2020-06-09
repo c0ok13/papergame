@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MovePiece : MonoBehaviour
 {
 
     [SerializeField]
-    private Transform piecePlace;
+    private Transform[] piecePlaces;
 
     private Vector2 initalPosition;
 
@@ -16,15 +17,17 @@ public class MovePiece : MonoBehaviour
 
     public bool locked;
     
-    private bool rotating ;
+    private bool rotating;
 
     float presstime = 0.0f;
 
+    static int piecePos;
 
     // Start is called before the first frame update
     void Start()
     {
         locked = false;
+        piecePos = -1;
         initalPosition = transform.position;
     }
 
@@ -56,6 +59,9 @@ public class MovePiece : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
             rend = transform.gameObject.GetComponent<SpriteRenderer>();
+
+            float height = transform.GetComponent<SpriteRenderer>().bounds.size.y;
+            float width = transform.GetComponent<SpriteRenderer>().bounds.size.x;
             if(!rotating && !locked)
             {
                 switch(touch.phase){
@@ -72,15 +78,35 @@ public class MovePiece : MonoBehaviour
                             transform.position = new Vector2(touchPos.x - deltaX, touchPos.y - deltaY);
                         }        
                         break;
-                    case TouchPhase.Ended:   
-                        if(Mathf.Abs(transform.position.x - piecePlace.position.x) <= 70 &&
-                        Mathf.Abs(transform.position.y - piecePlace.position.y) <= 70 && transform.rotation.z == 00) 
-                        {
-                            transform.position = new Vector3(piecePlace.position.x, piecePlace.position.y, 150);
-                            locked = true;
-                            rend.sortingOrder = 2;
+                    case TouchPhase.Ended:
+                        if(piecePos == -1){
+                            foreach (var item in piecePlaces.Select((value, index) => new { Value = value, Index = index }))
+                            {
+                                Transform piecePlace = item.Value;
+                                if(Mathf.Abs(transform.position.x - piecePlace.position.x) <= (width / 10) &&
+                                Mathf.Abs(transform.position.y - piecePlace.position.y) <= (height / 10) && 
+                                (transform.rotation.z - piecePlace.parent.gameObject.transform.rotation.z) == 00) 
+                                {
+                                    transform.position = new Vector3(piecePlace.position.x, piecePlace.position.y, 150);
+                                    locked = true;
+                                    piecePos = item.Index;
+                                    rend.sortingOrder = 2;  
+                                    break;
+                                } else {
+                                    rend.sortingOrder = 5;
+                                }
+                            }
                         } else {
-                            rend.sortingOrder = 5;
+                            if(Mathf.Abs(transform.position.x - piecePlaces[piecePos].position.x) <= (width / 10) &&
+                            Mathf.Abs(transform.position.y - piecePlaces[piecePos].position.y) <= (height / 10) && 
+                            (transform.rotation.z - piecePlaces[piecePos].parent.gameObject.transform.rotation.z) == 00) 
+                            {
+                                transform.position = new Vector3(piecePlaces[piecePos].position.x, piecePlaces[piecePos].position.y, 150);
+                                locked = true;
+                                rend.sortingOrder = 2;
+                            } else {
+                                rend.sortingOrder = 5;
+                            }
                         }
                         break;
                     case TouchPhase.Stationary: 

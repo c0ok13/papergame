@@ -11,12 +11,12 @@ public class LevelsFirst : MonoBehaviour
 
     public void OpenSimpleLevels()
     {
-        Application.LoadLevel(3);
+        Application.LoadLevel(8);
     }
 
     public void OpenAdvancedLevels()
     {
-        Application.LoadLevel(4);
+        Application.LoadLevel(8);
     }
 
     public void returnToMenu()
