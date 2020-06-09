@@ -48,7 +48,7 @@ public class MovePiece : MonoBehaviour
     public void StartRotation()
     {
         if( !rotating )
-            StartCoroutine( Rotate( new Vector3(0, 0, 90), 1));
+            StartCoroutine( Rotate( new Vector3(0, 0, 90), 0.4f));
             presstime = 0.0f;
     }
     // Update is called once per frame
