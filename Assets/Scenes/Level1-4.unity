@@ -852,6 +852,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1013,7 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0682e614c39487c4d93cbddb00937968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piecePlace: {fileID: 782969405}
+  piecePlaces: []
   locked: 0
 --- !u!114 &1009032524
 MonoBehaviour:
@@ -1234,6 +1235,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1312,8 +1314,9 @@ MonoBehaviour:
   - {fileID: 1558207253}
   - {fileID: 1758659948}
   - {fileID: 1009032522}
-  objects: []
   winText: {fileID: 1155968576}
+  levelPack: 1
+  level: 4
 --- !u!4 &1434468407
 Transform:
   m_ObjectHideFlags: 0
@@ -1380,6 +1383,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1597,7 +1601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0682e614c39487c4d93cbddb00937968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piecePlace: {fileID: 845315116}
+  piecePlaces: []
   locked: 0
 --- !u!114 &1558207255
 MonoBehaviour:
@@ -1800,6 +1804,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1867,7 +1872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0682e614c39487c4d93cbddb00937968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piecePlace: {fileID: 578139549}
+  piecePlaces: []
   locked: 0
 --- !u!114 &1728892300
 MonoBehaviour:
@@ -2007,7 +2012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0682e614c39487c4d93cbddb00937968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piecePlace: {fileID: 1124236867}
+  piecePlaces: []
   locked: 0
 --- !u!114 &1758659950
 MonoBehaviour:
@@ -2209,6 +2214,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

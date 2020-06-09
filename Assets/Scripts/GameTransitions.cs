@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameTransitions : MonoBehaviour
 {
     public GameObject pause;
+
+    public string nextScene;
 
     public void backLevels()
     {
@@ -14,6 +17,17 @@ public class GameTransitions : MonoBehaviour
     public void openPause()
     {
         pause.SetActive(!pause.activeSelf);
+    }
+
+    public void nextLevel()
+    {
+        SceneManager.LoadScene(nextScene);
+    }
+
+    public void restardLevel()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }
  
