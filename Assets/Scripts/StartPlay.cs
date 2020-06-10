@@ -8,12 +8,7 @@ public class StartPlay : MonoBehaviour
     {
         Application.LoadLevel(1);
     }
-
-    public void OpenGallery()
-    {
-        Application.LoadLevel(1);
-    }
-
+    
     public void ClearData()
     {
         PlayerPrefs.DeleteAll();

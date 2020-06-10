@@ -14,6 +14,11 @@ public class GameTransitions : MonoBehaviour
         Application.LoadLevel(2);
     }
 
+    public void backLevels2()
+    {
+        Application.LoadLevel(8);
+    }
+
     public void openPause()
     {
         pause.SetActive(!pause.activeSelf);
