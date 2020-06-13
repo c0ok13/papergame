@@ -19,6 +19,11 @@ public class GameTransitions : MonoBehaviour
         Application.LoadLevel(8);
     }
 
+    public void backLevels3()
+    {
+        Application.LoadLevel(14);
+    }
+
     public void openPause()
     {
         pause.SetActive(!pause.activeSelf);
@@ -33,6 +38,7 @@ public class GameTransitions : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+        MovePiece.piecePos = -1;
     }
 }
  

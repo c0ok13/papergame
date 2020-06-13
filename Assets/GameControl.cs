@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GameControl : MonoBehaviour
 {
-         
+
     [SerializeField]
     private GameObject loseText;
 
     [SerializeField]
     private float timeLeft;
-    
+
     public GameObject timer;
-    
+
 
     [SerializeField]
     private Transform[] pictures;
@@ -20,7 +20,7 @@ public class GameControl : MonoBehaviour
     [SerializeField]
     private GameObject winText;
 
-    
+
     private List<Vector2> initalPosition = new List<Vector2>();
 
     [SerializeField]
@@ -31,6 +31,9 @@ public class GameControl : MonoBehaviour
 
     [SerializeField]
     private GameObject winBorder;
+
+    [SerializeField]
+    private GameObject loseBorder;
 
     
     [SerializeField]
@@ -45,8 +48,8 @@ public class GameControl : MonoBehaviour
         PlayerPrefs.SetInt("LevelPassed", 1);
         winText.SetActive(false);
         youWin = false;
-        timer.GetComponent<UnityEngine.UI.Text>().text  = "" + Mathf.Round(timeLeft);
-        
+        timer.GetComponent<UnityEngine.UI.Text>().text = "" + Mathf.Round(timeLeft);
+
         foreach (Transform transform in pictures)
         {
             Debug.Log(transform.position.z);
@@ -58,9 +61,9 @@ public class GameControl : MonoBehaviour
             int index = random.Next(initalPosition.Count);
             transform.position = initalPosition[index];
             initalPosition.RemoveAt(index);
-            
-            Quaternion startRotation = transform.rotation ;
-            Quaternion endRotation = Quaternion.Euler( new Vector3(0, 0, random.Next(0, 3) * 90) ) * startRotation ;
+
+            Quaternion startRotation = transform.rotation;
+            Quaternion endRotation = Quaternion.Euler(new Vector3(0, 0, random.Next(0, 3) * 90)) * startRotation;
             transform.rotation = endRotation;
         }
     }
@@ -68,12 +71,13 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         GameObject pause = GameObject.Find("Pause");
-        if(pause == null){            
+        if (pause == null)
+        {
             timeLeft -= Time.deltaTime;
-            timer.GetComponent<UnityEngine.UI.Text>().text  = "" + Mathf.Round(timeLeft);
-            if(timeLeft < 0)
+            timer.GetComponent<UnityEngine.UI.Text>().text = "" + Mathf.Round(timeLeft);
+            if (timeLeft < 0 && !youWin)
             {
                 foreach (Transform picture in pictures)
                 {
@@ -81,41 +85,58 @@ public class GameControl : MonoBehaviour
                 }
                 timer.SetActive(false);
                 loseText.SetActive(true);
-                reload.SetActive(true);  
+                reload.SetActive(true);
+                loseBorder.SetActive(true);    
+                MovePiece.piecePos = -1;
             }
-
-
-            bool loopCheck = true;
-            foreach (Transform picture in pictures)
+            else
             {
-                if(!(picture.gameObject.GetComponent<MovePiece>().locked)){
-                    loopCheck = false;
-                }
-            }
-            if(loopCheck){
-                youWin = true;
-                timer.SetActive(false);
-                //levelLockSystem.
-                if(PlayerPrefs.GetInt("LevelPassed" + levelPack) < level){
-                    PlayerPrefs.SetInt("LevelPassed" + levelPack, level);
-                }
-                int j = 0;
-                for(int i = 0; i < timeLeft / 30; i++){
-                    stars[i].SetActive(true);
-                
-                    j++;
-                    if(i == 2){
-                        break;
+                bool loopCheck = true;
+                foreach (Transform picture in pictures)
+                {
+                    if (!(picture.gameObject.GetComponent<MovePiece>().locked))
+                    {
+                        loopCheck = false;
                     }
                 }
-                if(PlayerPrefs.GetInt(levelPack + "" + (level - 1) + "") >j)
+                if (loopCheck)
                 {
-                    PlayerPrefs.SetInt(levelPack + "" + (level - 1) + "", j);
-                }
+                    youWin = true;
+                    timer.SetActive(false);
+                    //levelLockSystem.
+                    if (PlayerPrefs.GetInt("LevelPassed" + levelPack) < level)
+                    {
+                        PlayerPrefs.SetInt("LevelPassed" + levelPack, level);
+                    }
+                    int j = 0;
+                    for (int i = 0; i < timeLeft / 30; i++)
+                    {
+                        stars[i].SetActive(true);
+
+                        j++;
+                        if (i == 2)
+                        {
+                            break;
+                        }
+                    }
+                    if (PlayerPrefs.GetInt(levelPack + "" + (level - 1) + "") < j)
+                    {
+                        PlayerPrefs.SetInt(levelPack + "" + (level - 1) + "", j);
+                    }
+                    winText.SetActive(true);
                 winText.SetActive(true);   
+                    winText.SetActive(true);
+                    nextLevel.SetActive(true);
                 nextLevel.SetActive(true);  
+                    nextLevel.SetActive(true);
+                    reload.SetActive(true);
                 reload.SetActive(true);    
+                    reload.SetActive(true);
+                    winBorder.SetActive(true);
                 winBorder.SetActive(true);    
+                    winBorder.SetActive(true);
+                    MovePiece.piecePos = -1;
+                }
             }
         }
 

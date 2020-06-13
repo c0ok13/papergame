@@ -14,6 +14,7 @@ public class MovePiece : MonoBehaviour
     private SpriteRenderer rend;
 
     private float deltaX, deltaY;
+    private Vector2 delta;
 
     public bool locked;
     
@@ -21,7 +22,9 @@ public class MovePiece : MonoBehaviour
 
     float presstime = 0.0f;
 
-    static int piecePos;
+    public static int piecePos;
+
+    public static GameObject activePiece;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +36,7 @@ public class MovePiece : MonoBehaviour
 
     private IEnumerator Rotate( Vector3 angles, float duration )
     {
-         rotating = true ;
+        rotating = true ;
         Quaternion startRotation = transform.rotation ;
         Quaternion endRotation = Quaternion.Euler( angles ) * startRotation ;
         for( float t = 0 ; t < duration ; t+= Time.deltaTime )
@@ -49,7 +52,6 @@ public class MovePiece : MonoBehaviour
     {
         if( !rotating )
             StartCoroutine( Rotate( new Vector3(0, 0, 90), 0.4f));
-            presstime = 0.0f;
     }
     // Update is called once per frame
     private void Update()
@@ -61,27 +63,32 @@ public class MovePiece : MonoBehaviour
             {
                 Touch touch = Input.GetTouch(0);
                 Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-                rend = transform.gameObject.GetComponent<SpriteRenderer>();
-
-                float height = transform.GetComponent<SpriteRenderer>().bounds.size.y;
-                float width = transform.GetComponent<SpriteRenderer>().bounds.size.x;
+                
                 if(!rotating && !locked)
                 {
+                    presstime += Time.deltaTime;
                     switch(touch.phase){
                         case TouchPhase.Began:
+                            presstime = 0.0f;
                             if(GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos)){
+                                activePiece = transform.gameObject;
+
+
                                 deltaX = touchPos.x - transform.position.x;
                                 deltaY = touchPos.y - transform.position.y;
+                                
+                                rend = transform.gameObject.GetComponent<SpriteRenderer>();
                                 rend.sortingOrder = 10;
                             }
                             break;
                         case TouchPhase.Moved:
-                            presstime = 0.0f;
-                            if(GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos)){
-                                transform.position = new Vector2(touchPos.x - deltaX, touchPos.y - deltaY);
-                            }        
+                            if(activePiece != null){
+                                activePiece.transform.position = Vector2.Lerp(activePiece.transform.position, touchPos, 0.7f);
+                            }
                             break;
                         case TouchPhase.Ended:
+                            float height = activePiece.GetComponent<SpriteRenderer>().bounds.size.y;
+                            float width = activePiece.GetComponent<SpriteRenderer>().bounds.size.x;
                             if(piecePos == -1){
                                 foreach (var item in piecePlaces.Select((value, index) => new { Value = value, Index = index }))
                                 {
@@ -111,13 +118,12 @@ public class MovePiece : MonoBehaviour
                                     rend.sortingOrder = 5;
                                 }
                             }
-                            break;
-                        case TouchPhase.Stationary: 
-                            presstime += Time.deltaTime;
-                            if(GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && presstime >= 0.5f){  
+                            activePiece = null;
+
+                            if(GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && presstime <= 0.3f){  
                                 StartRotation();
                             }
-                            break;    
+                            break;  
                         
                     }
                 }
