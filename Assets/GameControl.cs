@@ -27,6 +27,9 @@ public class GameControl : MonoBehaviour
     private GameObject[] stars;
 
     [SerializeField]
+    private GameObject[] loseStars;
+
+    [SerializeField]
     private GameObject nextLevel;
 
     [SerializeField]
@@ -86,8 +89,14 @@ public class GameControl : MonoBehaviour
                 timer.SetActive(false);
                 loseText.SetActive(true);
                 reload.SetActive(true);
+                reload.transform.position = new Vector3 (1080, 540, 0);
+                reload.GetComponent<RectTransform>().sizeDelta = new Vector2(300,300);
                 loseBorder.SetActive(true);    
                 MovePiece.piecePos = -1;
+                for (int i = 0; i < 3; i++)
+                    {
+                        loseStars[i].SetActive(true);
+                    }
             }
             else
             {

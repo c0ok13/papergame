@@ -120,7 +120,7 @@ public class MovePiece : MonoBehaviour
                             }
                             activePiece = null;
 
-                            if(GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && presstime <= 0.3f){  
+                            if(GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && presstime <= 0.1f){  
                                 StartRotation();
                             }
                             break;  
